@@ -84,6 +84,51 @@ class BinaryTree {
             return root;
         }
 
+        int removeNode(TreeNode *n){
+            int return_val = n->val;
+
+            TreeNode *parent = n->parent;
+
+            TreeNode *new_node = nullptr;
+            if(n->left){
+                new_node = n->left;
+            }
+
+            if(n->right){
+                new_node = n->right;
+            }
+
+            if(!new_node){
+                if(parent == nullptr){
+                    root = nullptr;
+                }else{
+                    if(parent->left == n){
+                        parent->left = nullptr; 
+                    }else if(parent->right == n){
+                        parent->right = nullptr;
+                    }
+                }
+            }else{
+                if(parent == nullptr){
+                    new_node->parent = nullptr;
+                    root = new_node;
+                }else{
+                    if(parent->left == n){
+                        parent->left = new_node;
+                        new_node->parent = parent;
+                    }else if(parent->right == n){
+                        parent->right = new_node;
+                        new_node->parent = parent;
+                    }
+                }
+            }
+            
+
+            free(n);
+            size--;
+            return return_val;
+        }
+
 
         void constructTree(TreeNode *node){
             TreeNode *left = nullptr;
@@ -171,8 +216,8 @@ class BinaryTree {
             }
         }
 
-        int *remove(int val){
-            int return_val;
+        bool removeNodeBST(int val){
+            int smallest_value;
 
             TreeNode *curr = getRoot();
             while(curr){
@@ -186,23 +231,28 @@ class BinaryTree {
             }
 
             //check if nakit-an ba ang value
-            if(!curr) return INT_MIN; //wala jud nakit-an ang value
+            if(!curr) return false; //wala jud nakit-an ang value
+            
+            cout << "value nga nakit-an: " << curr->val << endl;
 
             //get the smallest value at the right of the tree (ang smallest value kay siya gihapon ang
             //biggest value sa BST since naa man shas right amazingg...
            
             if(curr->left && curr->right){  //if naa shay children
-                node *right_subtree_anchor = curr->right;
+                TreeNode *right_subtree_anchor = curr->right;
+                cout << "value sa right before loop: " <<curr->right->val << endl;
                 //para makuha ang least na value, always go down sa left
                 while(right_subtree_anchor->left){
                     right_subtree_anchor = right_subtree_anchor->left;
                 }
 
+                smallest_value = removeNode(right_subtree_anchor);
+                curr->val = smallest_value;
             }else{ // wa shay children, maremove ra sha dayon
-                int 
+                removeNode(curr);
             }
 
-
+            return true;
         }
 
 

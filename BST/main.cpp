@@ -25,5 +25,12 @@ int main(void){
   
     tree->breadthFirstTraversal();
 
+    int remove_val;
+    cout << "Enter value of node to remove: ";
+    cin >> remove_val;
+
+    tree->removeNodeBST(remove_val);
+    tree->breadthFirstTraversal();
+
     return 0;
 }
