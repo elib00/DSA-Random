@@ -178,7 +178,6 @@ class BinaryTree {
         TreeNode *insert(int val){
             if(!root){
                 root = addRoot(val);
-                size++;
                 return root;
             }
 
@@ -188,9 +187,7 @@ class BinaryTree {
                     if(curr->left){
                         curr = curr->left;
                     }else{
-                        size++;
-                        TreeNode *n = createNode(curr, val);
-                        curr->left = n;
+                        TreeNode *n = addLeft(curr, val);
                         cout << "parent of subtree: " << curr->val << endl;
                         cout << "left of " << curr->val << ": ";
                         (curr->left) ? cout << curr->left->val << endl : cout << "no left child" << endl;
@@ -203,8 +200,7 @@ class BinaryTree {
                         curr = curr->right;
                     }else{
                         size++;
-                        TreeNode *n = createNode(curr, val);
-                              curr->right = n;
+                        TreeNode *n = addRight(curr, val);
                         cout << "parent of subtree: " << curr->val << endl;
                         cout << "left of " << curr->val << ": ";
                         (curr->left) ? cout << curr->left->val << endl : cout << "no left child" << endl;
@@ -253,6 +249,23 @@ class BinaryTree {
             }
 
             return true;
+        }
+
+        TreeNode *convertPreorder(int *array, int start, int end, TreeNode *parent){
+            if(start > end) return nullptr;
+
+            TreeNode *n = new TreeNode();
+            n->val = array[start];
+            n->parent = parent;
+
+            int i = start + 1;
+            while(i <= end && array[start] > array[i]){
+                i++;
+            }
+
+            n->left = convertPreorder(array, start + 1, i - 1, n);
+            n->right = convertPreorder(array, i, end, n);
+            return n;
         }
 
 
