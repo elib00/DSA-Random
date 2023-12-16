@@ -1,6 +1,6 @@
 struct TreeNode{
-    TreeNode *parent = nullptr;
-    TreeNode *left = nullptr;
-    TreeNode *right = nullptr;
+    TreeNode *parent;
+    TreeNode *left;
+    TreeNode *right;
     int val;
 };

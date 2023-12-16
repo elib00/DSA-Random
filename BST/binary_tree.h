@@ -1,8 +1,6 @@
 #include <iostream>
-#include "tree_node.h"
-#include <queue>
 #include <string>
-#include <climits>
+#include "tree_node.h"
 using namespace std;
 
 class BinaryTree {
