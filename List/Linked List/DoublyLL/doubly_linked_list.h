@@ -253,4 +253,12 @@ class DoublyLL : public List {
 
             return head->next->data;
         }
+
+        int getTail(){
+            if(tail->prev == head){
+                return -1;
+            }
+            
+            return tail->prev->data;
+        }
 };
